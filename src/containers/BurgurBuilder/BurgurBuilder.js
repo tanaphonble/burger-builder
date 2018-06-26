@@ -19,7 +19,20 @@ class BurgurBuilder extends Component {
       cheese: 0,
       meat: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    purchasable: false
+  }
+
+  updatePurchaseState = (ingredients) => {
+    const sum = Object.keys(ingredients)
+      .map(igKey => {
+        return ingredients[igKey]
+      })
+      .reduce((sum, el) => {
+        return sum + el
+      }, 0)
+
+    this.setState({ purchasable: sum > 0 })
   }
 
   addIngredientHandler = type => {
@@ -38,6 +51,8 @@ class BurgurBuilder extends Component {
       ingredients: updateIngredients,
       totalPrice: newPrice
     })
+
+    this.updatePurchaseState(updateIngredients)
   }
 
   removeIngredientHandler = type => {
@@ -60,6 +75,8 @@ class BurgurBuilder extends Component {
       ingredients: updateIngredients,
       totalPrice: newPrice
     })
+
+    this.updatePurchaseState(updateIngredients)
   }
 
   render() {
@@ -78,6 +95,7 @@ class BurgurBuilder extends Component {
           price={this.state.totalPrice}
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
+          purchasable={this.state.purchasable}
           disabled={disabledInfo}
         />
       </Aux>
