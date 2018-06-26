@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 
-import Layout from "./components/Layout/Layout";
-import BurgurBuilder from "./containers/BurgurBuilder/BurgurBuilder";
+import Layout from './components/Layout/Layout'
+import BurgurBuilder from './containers/BurgurBuilder/BurgurBuilder'
 
 class App extends Component {
   render() {
@@ -11,8 +11,8 @@ class App extends Component {
           <BurgurBuilder />
         </Layout>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
