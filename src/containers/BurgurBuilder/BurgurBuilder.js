@@ -103,27 +103,20 @@ class BurgurBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    this.setState({
-      loading: true
-    })
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: 'Max',
-        address: {
-          street: 'st1',
-          zipCode: '12033',
-          country: 'Thailand'
-        },
-        email: 'tets@tee.com'
-      },
-      deliveryMethod: 'fastest'
+    const queryParams = []
+    for (let i in this.state.ingredients) {
+      queryParams.push(
+        encodeURIComponent(i) +
+          '=' +
+          encodeURIComponent(this.state.ingredients[i])
+      )
     }
-    axios
-      .post('/order.json', order)
-      .then((response) => this.setState({ loading: false, purchasing: false }))
-      .catch((error) => this.setState({ loading: false, purchasing: false }))
+    const queryString = queryParams.join('&')
+
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    })
   }
 
   render() {
